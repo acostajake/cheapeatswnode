@@ -1,9 +1,14 @@
 const express = require('express');
-const storeController = require('../controllers/storeController')
 const router = express.Router();
 
+const restaurantController = require('../controllers/restaurantController')
+const { catchErrors } = require('../handlers/errorHandlers');
+
 // Do work here
-router.get('/', storeController.middleware, storeController.homePage)
+router.get('/', restaurantController.homePage)
+
+router.get('/add', restaurantController.addRestaurant);
+router.post('/add', catchErrors(restaurantController.createRestaurant));
 
 module.exports = router;
  
