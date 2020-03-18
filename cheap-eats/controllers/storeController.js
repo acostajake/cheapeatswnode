@@ -1,4 +1,4 @@
-exports.myMiddleware = (req, res, next) => {
+exports.middleware = (req, res, next) => {
     req.name = 'Jake'
     next()
 }

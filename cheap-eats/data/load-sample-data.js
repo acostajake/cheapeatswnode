@@ -1,11 +1,13 @@
-require('dotenv').config({ path: __dirname + '/../variables.env' });
 const fs = require('fs');
-
 const mongoose = require('mongoose');
-mongoose.connect(process.env.DATABASE);
+
+require('dotenv').config({ path: __dirname + '/../variables.env' });
+
+mongoose.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('useCreateIndex', true);
 mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
 
-// import all of our models - they need to be imported only once
+// import models
 const Store = require('../models/Store');
 const Review = require('../models/Review');
 const User = require('../models/User');

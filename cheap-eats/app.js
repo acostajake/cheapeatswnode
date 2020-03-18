@@ -1,19 +1,21 @@
-const express = require('express');
-const session = require('express-session');
-const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
-const path = require('path');
-const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser')
+const express = require('express');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const helpers = require('./helpers');
+const mongoose = require('mongoose');
 const passport = require('passport');
 const promisify = require('es6-promisify');
-const flash = require('connect-flash');
-const expressValidator = require('express-validator');
+const path = require('path');
 const routes = require('./routes/index');
-const helpers = require('./helpers');
+const session = require('express-session');
+
 const errorHandlers = require('./handlers/errorHandlers');
 
+const MongoStore = require('connect-mongo')(session);
 const app = express();
+mongoose.set('useCreateIndex', true);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views')); // pug files
