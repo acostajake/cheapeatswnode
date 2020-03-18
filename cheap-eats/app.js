@@ -13,28 +13,27 @@ const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 
-// create our Express app
 const app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views')); // this is the folder where we keep our pug files
-app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
+app.set('views', path.join(__dirname, 'views')); // pug files
+app.set('view engine', 'pug'); // inject template engine
 
-// serves up static files from the public folder. Anything in public/ will just be served up as the file it is
+// serves up static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Takes the raw requests and turns them into usable properties on req.body
+// Turns raw reqs into properties on req.body
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Exposes a bunch of methods for validating data. Used heavily on userController.validateRegister
+// Validating data in userController.validateRegister
 app.use(expressValidator());
 
 // populates req.cookies with any cookies that came along with the request
 app.use(cookieParser());
 
 // Sessions allow us to store data on visitors from request to request
-// This keeps users logged in and allows us to send flash messages
+// This keeps users logged in and enable flash messages
 app.use(session({
   secret: process.env.SECRET,
   key: process.env.KEY,
@@ -43,7 +42,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-// // Passport JS is what we use to handle our logins
+// Handle logins
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -65,16 +64,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// After allllll that above middleware, we finally handle our own routes!
+// Set routes
 app.use('/', routes);
 
-// If that above routes didnt work, we 404 them and forward to error handler
+// 404 for bad routes
 app.use(errorHandlers.notFound);
 
-// One of our error handlers will see if these errors are just validation errors
+// See if errors are just validation errors
 app.use(errorHandlers.flashValidationErrors);
 
-// Otherwise this was a really bad error we didn't expect! Shoot eh
+// Help devs
 if (app.get('env') === 'development') {
   /* Development Error Handler - Prints stack trace */
   app.use(errorHandlers.developmentErrors);
@@ -83,5 +82,4 @@ if (app.get('env') === 'development') {
 // production error handler
 app.use(errorHandlers.productionErrors);
 
-// done! we export it so we can start the site in start.js
 module.exports = app;
