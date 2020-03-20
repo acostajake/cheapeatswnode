@@ -1,0 +1,12 @@
+mixin restaurantCard(restaurant = {})
+    .store
+        .store__hero
+            .store__actions
+                .store__action.store__action--edit
+                    a(href=`/restaurants/${restaurant._id}/edit`)
+                        != h.icon('pencil')
+            img(src=`uploads/${restaurant.photo || 'defaultRest.png'}`)
+            h2.title
+                a(href=`/restaurant/${restaurant.slug}`) #{restaurant.name}
+        .store__details
+            p= restaurant.description.split(' ').slice(0, 40).join(' ')

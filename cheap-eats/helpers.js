@@ -2,7 +2,7 @@ const fs = require('fs');
 
 exports.moment = require('moment');
 
-// Dump is a handy debugging function we can use to sort of "console.log" our data
+// Throws blob
 exports.dump = (obj) => JSON.stringify(obj, null, 2);
 
 // Static map helper function
@@ -14,7 +14,7 @@ exports.icon = (name) => fs.readFileSync(`./public/images/icons/${name}.svg`);
 exports.siteName = `Cheap Eats!`;
 
 exports.menu = [
-  { slug: '/stores', title: 'Stores', icon: 'store', },
+  { slug: '/restaurants', title: 'Places', icon: 'store', },
   { slug: '/tags', title: 'Tags', icon: 'tag', },
   { slug: '/top', title: 'Top', icon: 'top', },
   { slug: '/add', title: 'Add', icon: 'add', },

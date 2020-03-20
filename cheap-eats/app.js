@@ -15,7 +15,6 @@ const errorHandlers = require('./handlers/errorHandlers');
 
 const MongoStore = require('connect-mongo')(session);
 const app = express();
-mongoose.set('useCreateIndex', true);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views')); // pug files

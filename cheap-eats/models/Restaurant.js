@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const slug = require('slugs');
+const slug = require('slug');
 
 mongoose.Promise = global.Promise;
 
 const restaurantSchema = new mongoose.Schema({
-    restaurant: {
+    name: {
         type: String,
         trim: true,
         required: 'Please enter a restaurant name'
@@ -25,6 +25,6 @@ restaurantSchema.pre('save', function(next) {
     }
     this.slug = slug(this.name);
     next()
-})
+});
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);

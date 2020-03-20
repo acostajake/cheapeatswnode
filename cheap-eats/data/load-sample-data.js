@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 
 require('dotenv').config({ path: __dirname + '/../variables.env' });
 
-mongoose.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true });
-mongoose.set('useCreateIndex', true);
-mongoose.Promise = global.Promise; // Tell Mongoose to use ES6 promises
+mongoose.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
+mongoose.Promise = global.Promise;
 
 // import models
 const Store = require('../models/Store');
