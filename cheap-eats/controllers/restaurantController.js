@@ -51,6 +51,15 @@ exports.createRestaurant = async (req, res) => {
     res.redirect(`/restaurant/${restaurant.slug}`);
 }
 
+exports.getRestaurantBySlug = async (req, res, next) => {
+    const restaurant = await Restaurant.findOne({ slug: req.params.slug });
+    if(!restaurant) return next();
+    res.render('restaurant', {
+        title: restaurant.name,
+        restaurant
+    });
+}
+
 exports.getRestaurants = async (req, res) => {
     const restaurants = await Restaurant.find();
     res.render('restaurants', {
@@ -65,7 +74,6 @@ exports.editRestaurant = async (req, res) => {
         title: 'Update',
         restaurant
     })
-
 }
 
 exports.updateRestaurant = async (req, res) => {
