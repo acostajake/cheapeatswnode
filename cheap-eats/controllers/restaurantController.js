@@ -1,6 +1,22 @@
 const mongoose = require('mongoose');
+const Restaurant = mongoose.model('Restaurant');
 
-const Restaurant = mongoose.model('Restaurant')
+const multer = require('multer');
+const jimp = require('jimp');
+const uuid = require('uuid');
+
+
+const multerOptions = {
+    storage: multer.memoryStorage(),
+    fileFilter(req, file, next) {
+        const isPhoto = file.mimetype.startsWith('image/');
+        if(isPhoto) {
+            next(null, true)
+        } else {
+            next({ message: 'File type not allowed' }, false);
+        }
+    }
+}
 
 exports.homePage = (req, res) => {
     res.render('restaurants', {
@@ -12,6 +28,21 @@ exports.addRestaurant = (req, res) => {
     res.render('updateRestaurant', {
         title: 'Add'
     });
+}
+
+exports.upload = multer(multerOptions).single('photo')
+ 
+exports.resize = async (req, res, next) => {
+    if(!req.file) {
+        return next();
+    }
+    // Give unique id to each photo from all users, resize to something practical
+    const extension = req.file.mimetype.split('/')[1];
+    req.body.photo = `${uuid.v4()}.${extension}`;
+    const photo = await jimp.read(req.file.buffer);
+    await photo.resize(800, jimp.AUTO);
+    await photo.write(`./public/uploads/${req.body.photo}`);
+    next();
 }
 
 exports.createRestaurant = async (req, res) => {
