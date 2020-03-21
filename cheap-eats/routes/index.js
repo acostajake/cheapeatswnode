@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const restaurantController = require('../controllers/restaurantController')
+const restaurantController = require('../controllers/restaurantController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-router.get('/', catchErrors(restaurantController.getRestaurants))
-router.get('/restaurants', catchErrors(restaurantController.getRestaurants))
+router.get('/', catchErrors(restaurantController.getRestaurants));
 
 router.get('/add', restaurantController.addRestaurant);
 
@@ -19,7 +18,10 @@ router.post('/add/:id',
     catchErrors(restaurantController.resize),
     catchErrors(restaurantController.updateRestaurant));
 
-router.get('/restaurants/:id/edit', catchErrors(restaurantController.editRestaurant))
+router.get('/restaurant/:slug', catchErrors(restaurantController.getRestaurantBySlug));
+
+router.get('/restaurants', catchErrors(restaurantController.getRestaurants));
+router.get('/restaurants/:id/edit', catchErrors(restaurantController.editRestaurant));
 
 module.exports = router;
  
