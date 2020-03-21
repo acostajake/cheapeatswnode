@@ -1,16 +1,25 @@
 mixin restaurantForm(restaurant = {})
-    form(action=`/add/${restaurant._id} || ''}` method="POST" class="card")
-        label(for="name") Place
-        input(type="text" name="name" value=restaurant.name)
+    form(action=`/add/${restaurant._id || ''}` method='POST' class='card')
+        label(for='name') Place
+        input(type='text' name='name' value=restaurant.name)
 
-        label(for="description") Description
-        textarea(name="description")= restaurant.description
+        label(for='description') Description
+        textarea(name='description')= restaurant.description
+
+        label(for='address') Address
+        input(type='text' id='address' name='location[address]' value=(restaurant.location && restaurant.location.address))
+
+        label(for='long') Address Long
+        input(type='text' id='long' name='location[coordinates][0]' value=(restaurant.location && restaurant.location.coordinates.length))
+
+        label(for='lat') Address Lat
+        input(type='text' id='lat' name='location[coordinates][1]' value=(restaurant.location && restaurant.location.coordinates.length))
 
         - const choices = ['Wifi', 'Open Late', 'Fam friendly', 'Veg friendly', 'Licensed']
         - const tags = restaurant.tags || []
         ul.tags
             each choice in choices
                 .tag.tag__choice
-                    input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
-                    label(for="choice") #{choice}
-        input(type="submit" value="Save it" class="button")
+                    input(type='checkbox' id=choice value=choice name='tags' checked=(tags.includes(choice)))
+                    label(for='choice') #{choice}
+        input(type='submit' value='Save it' class='button')
