@@ -30,7 +30,6 @@ exports.getRestaurants = async (req, res) => {
 
 exports.editRestaurant = async (req, res) => {
     const restaurant = await Restaurant.findOne({ _id: req.params.id });
-    console.log(restaurant)
     res.render('updateRestaurant', {
         title: 'Update',
         restaurant
@@ -39,6 +38,8 @@ exports.editRestaurant = async (req, res) => {
 }
 
 exports.updateRestaurant = async (req, res) => {
+    // Updating address wipes type in Mongoose, so setting here 
+    req.body.location.type = 'Point'
     const restaurant = await Restaurant.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true }).exec()
     req.flash('success', `Thanks! Updated ${restaurant.name}. <a href='/restaurants/${restaurant.slug}'>See update</a>`);
     res.redirect(`/restaurants/${restaurant._id}/edit`)
