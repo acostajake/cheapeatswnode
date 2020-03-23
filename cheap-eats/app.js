@@ -11,7 +11,9 @@ const path = require('path');
 const routes = require('./routes/index');
 const session = require('express-session');
 
+
 const errorHandlers = require('./handlers/errorHandlers');
+require('./handlers/passport');
 
 const MongoStore = require('connect-mongo')(session);
 const app = express();
@@ -27,7 +29,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Validating data in userController.validateRegister
+// Validating data in userController.signup
 app.use(expressValidator());
 
 // populates req.cookies with any cookies that came along with the request

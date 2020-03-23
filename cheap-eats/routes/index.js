@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
+const authController = require('../controllers/authController');
 const restaurantController = require('../controllers/restaurantController');
+const userController = require('../controllers/userController');
 const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(restaurantController.getRestaurants));
@@ -25,6 +27,16 @@ router.get('/restaurants/:id/edit', catchErrors(restaurantController.editRestaur
 
 router.get('/tags', catchErrors(restaurantController.getRestaurantsByTag))
 router.get('/tags/:tag', catchErrors(restaurantController.getRestaurantsByTag))
+
+router.get('/login', userController.login);
+router.post('/login', )
+
+router.get('/signup', userController.signup);
+router.post('/signup',
+    userController.validateSignup,
+    userController.addUserToDB,
+    authController.logIn
+)
 
 module.exports = router;
  
