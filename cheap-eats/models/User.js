@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const md5 = require('md5');
-const validator = require('validator/es/lib/isEmail');
+const validator = require('validator');
 const mongodbErrorHandler = require('mongoose-mongodb-errors');
 const passportLocalMongoose = require('passport-local-mongoose');
 
@@ -18,8 +18,7 @@ const userSchema = new Schema({
         type: String,
         required: 'Enter your name',
         trim: true
-    },
-    password
+    }
 });
 
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' });

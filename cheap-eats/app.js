@@ -11,7 +11,9 @@ const path = require('path');
 const routes = require('./routes/index');
 const session = require('express-session');
 
+
 const errorHandlers = require('./handlers/errorHandlers');
+require('./handlers/passport');
 
 const MongoStore = require('connect-mongo')(session);
 const app = express();

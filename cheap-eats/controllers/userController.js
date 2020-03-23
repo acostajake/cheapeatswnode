@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const User = mongoose.model('User');
+const promisify = require('es6-promisify');
 
 exports.login = (req, res) => {
     res.render('login', { title: 'Login' })
@@ -33,4 +35,12 @@ exports.validateSignup = (req, res, next) => {
     }
     // All good, push to db
     next();
-}
+};
+
+exports.addUserToDB = async (req, res, next) => {
+    const user = new User({ email: req.body.email, name: req.body.name })
+    // create promise and use register method on passportjs
+    const registerUser = promisify(User.register, User);
+    await registerUser(user, req.body.password);
+    next();
+};
