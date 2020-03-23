@@ -70,9 +70,12 @@ exports.getRestaurantBySlug = async (req, res, next) => {
 }
 
 exports.getRestaurantsByTag = async (req, res) => {
-    const tags = await Restaurant.getTagsList();
-    const tag = req.params.tag
-    res.render('tags', { tags, title: 'Tags', tag })
+    const tag = req.params.tag;
+    const queryTag = tag || { $exists: true };
+    const getTags = Restaurant.getTagsList();
+    const getRestaurants = Restaurant.find({ tags: queryTag });
+    const [tags, restaurants] = await Promise.all([getTags, getRestaurants]);
+    res.render('tags', { title: 'Tags', restaurants, tags, tag });
 }
 
 exports.editRestaurant = async (req, res) => {
