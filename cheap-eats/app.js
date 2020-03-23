@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Validating data in userController.validateRegister
+// Validating data in userController.signup
 app.use(expressValidator());
 
 // populates req.cookies with any cookies that came along with the request
