@@ -11,4 +11,8 @@ block content
                     a.tag__link(href=`/tags/${item._id}` class=(item._id === tag ? 'tag__link--active' : ''))
                         span.tag__text= item._id
                         span.tag__count= item.count
+
+        .stores
+            each restaurant in restaurants
+                +restaurantCard(restaurant)
                 
