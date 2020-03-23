@@ -30,6 +30,7 @@ exports.addRestaurant = (req, res) => {
     });
 }
 
+// Multer adds a body object and a file or files object to the request object.
 exports.upload = multer(multerOptions).single('photo')
  
 exports.resize = async (req, res, next) => {
@@ -51,6 +52,14 @@ exports.createRestaurant = async (req, res) => {
     res.redirect(`/restaurant/${restaurant.slug}`);
 }
 
+exports.getRestaurants = async (req, res) => {
+    const restaurants = await Restaurant.find();
+    res.render('restaurants', {
+        title: 'Update',
+        restaurants
+    })
+}
+
 exports.getRestaurantBySlug = async (req, res, next) => {
     const restaurant = await Restaurant.findOne({ slug: req.params.slug });
     if(!restaurant) return next();
@@ -60,12 +69,10 @@ exports.getRestaurantBySlug = async (req, res, next) => {
     });
 }
 
-exports.getRestaurants = async (req, res) => {
-    const restaurants = await Restaurant.find();
-    res.render('restaurants', {
-        title: 'Update',
-        restaurants
-    })
+exports.getRestaurantsByTag = async (req, res) => {
+    const tags = await Restaurant.getTagsList();
+    const tag = req.params.tag
+    res.render('tags', { tags, title: 'Tags', tag })
 }
 
 exports.editRestaurant = async (req, res) => {
@@ -77,7 +84,7 @@ exports.editRestaurant = async (req, res) => {
 }
 
 exports.updateRestaurant = async (req, res) => {
-    // Updating address wipes type in Mongoose, so setting here 
+    // Updating address wipes type in mongoose, so setting here 
     req.body.location.type = 'Point'
     const restaurant = await Restaurant.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true }).exec()
     req.flash('success', `Thanks! Updated ${restaurant.name}. <a href='/restaurants/${restaurant.slug}'>See update</a>`);

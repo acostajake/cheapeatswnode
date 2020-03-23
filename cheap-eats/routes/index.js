@@ -23,5 +23,8 @@ router.get('/restaurant/:slug', catchErrors(restaurantController.getRestaurantBy
 router.get('/restaurants', catchErrors(restaurantController.getRestaurants));
 router.get('/restaurants/:id/edit', catchErrors(restaurantController.editRestaurant));
 
+router.get('/tags', catchErrors(restaurantController.getRestaurantsByTag))
+router.get('/tags/:tag', catchErrors(restaurantController.getRestaurantsByTag))
+
 module.exports = router;
  
