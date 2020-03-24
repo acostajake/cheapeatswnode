@@ -44,3 +44,21 @@ exports.addUserToDB = async (req, res, next) => {
     await registerUser(user, req.body.password);
     next();
 };
+
+exports.viewAccount = (req, res) => {
+    res.render('account', { title: 'Update account' })
+};
+
+exports.updateAccount = async (req, res) => {
+    const changes = {
+        name: req.body.name,
+        email: req.body.email
+    };
+    const user = await User.findOneAndUpdate(
+        { _id: req.user._id },
+        { $set: updates },
+        { new: true , runValidators: true, context: 'query' }
+    );
+    req.flash('success', 'Account updated!')
+    res.redirect('back');
+}
