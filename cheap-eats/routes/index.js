@@ -40,5 +40,14 @@ router.post('/signup',
 
 router.get('/logout', authController.logOut);
 
+router.get('/account', authController.isLoggedIn, userController.viewAccount);
+router.post('/account', catchErrors(userController.updateAccount));
+router.post('/account/forgot', catchErrors(authController.forgotPassword));
+router.get('/account/reset/:token', catchErrors(authController.resetPassword));
+router.post('/account/reset/:token',
+    authController.checkPasswords,
+    catchErrors(authController.updatePasswords)
+);
+
 module.exports = router;
  
