@@ -46,6 +46,7 @@ exports.resize = async (req, res, next) => {
 }
 
 exports.createRestaurant = async (req, res) => {
+    req.body.author = req.user._id;
     const restaurant = await new Restaurant(req.body).save();
     req.flash('success', `Successfully added ${restaurant.name}! Add a review!`)
     res.redirect(`/restaurant/${restaurant.slug}`);
@@ -77,8 +78,16 @@ exports.getRestaurantsByTag = async (req, res) => {
     res.render('tags', { title: 'Tags', restaurants, tags, tag });
 }
 
+const confirmAuthor = (restaurant, user) => {
+    if(!restaurant.author.equals(user._id)) {
+        throw Error('You can only edit a place you added.')
+    }
+};
+
 exports.editRestaurant = async (req, res) => {
     const restaurant = await Restaurant.findOne({ _id: req.params.id });
+    confirmAuthor(restaurant, req.user);
+    
     res.render('updateRestaurant', {
         title: 'Update',
         restaurant
