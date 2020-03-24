@@ -44,7 +44,7 @@ exports.forgotPassword = async (req, res) => {
     
     // send email with token and link
     const resetUrl = `http://${req.headers.host}.account/reset/${user.resetPasswordToken}`
-    sendEmail.sendResetPasswordEmail({
+    await sendEmail.sendResetPasswordEmail({
         user,
         subject: 'Password Reset',
         resetUrl,
