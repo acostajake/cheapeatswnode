@@ -8,7 +8,7 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 router.get('/', catchErrors(restaurantController.getRestaurants));
 
-router.get('/add', restaurantController.addRestaurant);
+router.get('/add', authController.isLoggedIn, restaurantController.addRestaurant);
 
 router.post('/add', 
     restaurantController.upload,
@@ -28,15 +28,17 @@ router.get('/restaurants/:id/edit', catchErrors(restaurantController.editRestaur
 router.get('/tags', catchErrors(restaurantController.getRestaurantsByTag))
 router.get('/tags/:tag', catchErrors(restaurantController.getRestaurantsByTag))
 
-router.get('/login', userController.login);
-router.post('/login', )
+router.get('/login', userController.logInUser);
+router.post('/login', authController.logInAuth)
 
 router.get('/signup', userController.signup);
 router.post('/signup',
     userController.validateSignup,
     userController.addUserToDB,
-    authController.logIn
-)
+    authController.logInAuth
+);
+
+router.get('/logout', authController.logOut);
 
 module.exports = router;
  
