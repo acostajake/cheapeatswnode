@@ -15,19 +15,19 @@ const multerOptions = {
             next({ message: 'File type not allowed' }, false);
         }
     }
-}
+};
 
 exports.homePage = (req, res) => {
     res.render('restaurants', {
         title: 'Home'
-    })
-}
+    });
+};
 
 exports.addRestaurant = (req, res) => {
     res.render('updateRestaurant', {
         title: 'Add'
     });
-}
+};
 
 // Multer adds a body object and a file or files object to the request object.
 exports.upload = multer(multerOptions).single('photo')
@@ -43,14 +43,14 @@ exports.resize = async (req, res, next) => {
     await photo.resize(800, jimp.AUTO);
     await photo.write(`./public/uploads/${req.body.photo}`);
     next();
-}
+};
 
 exports.createRestaurant = async (req, res) => {
     req.body.author = req.user._id;
     const restaurant = await new Restaurant(req.body).save();
     req.flash('success', `Successfully added ${restaurant.name}! Add a review!`)
     res.redirect(`/restaurant/${restaurant.slug}`);
-}
+};
 
 exports.getRestaurants = async (req, res) => {
     const restaurants = await Restaurant.find();
@@ -58,7 +58,7 @@ exports.getRestaurants = async (req, res) => {
         title: 'Update',
         restaurants
     })
-}
+};
 
 exports.getRestaurantBySlug = async (req, res, next) => {
     const restaurant = await Restaurant.findOne({ slug: req.params.slug });
@@ -67,7 +67,7 @@ exports.getRestaurantBySlug = async (req, res, next) => {
         title: restaurant.name,
         restaurant
     });
-}
+};
 
 exports.getRestaurantsByTag = async (req, res) => {
     const tag = req.params.tag;
@@ -76,7 +76,7 @@ exports.getRestaurantsByTag = async (req, res) => {
     const getRestaurants = Restaurant.find({ tags: queryTag });
     const [tags, restaurants] = await Promise.all([getTags, getRestaurants]);
     res.render('tags', { title: 'Tags', restaurants, tags, tag });
-}
+};
 
 const confirmAuthor = (restaurant, user) => {
     if(!restaurant.author.equals(user._id)) {
@@ -91,8 +91,8 @@ exports.editRestaurant = async (req, res) => {
     res.render('updateRestaurant', {
         title: 'Update',
         restaurant
-    })
-}
+    });
+};
 
 exports.updateRestaurant = async (req, res) => {
     // Updating address wipes type in mongoose, so setting here 
@@ -100,4 +100,16 @@ exports.updateRestaurant = async (req, res) => {
     const restaurant = await Restaurant.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true }).exec()
     req.flash('success', `Thanks! Updated ${restaurant.name}. <a href='/restaurants/${restaurant.slug}'>See update</a>`);
     res.redirect(`/restaurants/${restaurant._id}/edit`)
-}
+};
+
+exports.search = async (req, res) => {
+    const restaurants = await Restaurant
+    .find({
+        $text: { $search: req.query.q }
+    }, {
+        score: { $meta: 'textScore' }
+    }).sort({
+        score: { $meta: 'textScore' }
+    }).limit(8);
+    res.json(restaurants);
+};
