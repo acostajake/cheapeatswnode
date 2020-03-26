@@ -13,7 +13,6 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
                 alert('Try again! Nothing found.');
                 return;
             }
-            console.log(places)
 
             const bounds = new google.maps.LatLngBounds();
             const infoWindow = new google.maps.InfoWindow();
