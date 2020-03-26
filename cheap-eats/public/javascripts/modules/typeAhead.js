@@ -24,7 +24,6 @@ function typeAhead(search) {
     axios.get(`/api/search?q=${this.value}`)
         .then(res => {
             if(res.data.length) {
-                console.log(res.data)
                 searchResults.innerHTML = dompurify.sanitize(searchResultsHtml(res.data));
                 return;
             }

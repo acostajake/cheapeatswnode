@@ -52,10 +52,16 @@ router.post('/account/reset/:token',
     catchErrors(authController.updatePasswords)
 );
 
+router.get('/likes', authController.isLoggedIn, catchErrors(restaurantController.getLikes));
+
+router.get('/map', restaurantController.getMap);
+
 // handle API
 router.get('/api/search', catchErrors(restaurantController.search));
 
 router.get('/api/restaurants/near', catchErrors(restaurantController.searchNearby));
+
+router.post('/api/restaurants/:id/like', catchErrors(restaurantController.likePlace))
 
 module.exports = router;
  

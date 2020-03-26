@@ -813,7 +813,6 @@ function loadPlaces(map) {
             alert('Try again! Nothing found.');
             return;
         }
-        console.log(places);
 
         var bounds = new google.maps.LatLngBounds();
         var infoWindow = new google.maps.InfoWindow();
@@ -901,7 +900,6 @@ function typeAhead(search) {
 
         _axios2.default.get('/api/search?q=' + this.value).then(function (res) {
             if (res.data.length) {
-                console.log(res.data);
                 searchResults.innerHTML = _dompurify2.default.sanitize(searchResultsHtml(res.data));
                 return;
             }
@@ -2745,6 +2743,10 @@ var _autoComplete = __webpack_require__(9);
 
 var _autoComplete2 = _interopRequireDefault(_autoComplete);
 
+var _like = __webpack_require__(34);
+
+var _like2 = _interopRequireDefault(_like);
+
 var _map = __webpack_require__(10);
 
 var _map2 = _interopRequireDefault(_map);
@@ -2755,11 +2757,52 @@ var _typeAhead2 = _interopRequireDefault(_typeAhead);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var formLikes = (0, _bling.$$)('form.heart');
+formLikes.on('submit', _like2.default);
+
 (0, _autoComplete2.default)((0, _bling.$)('#address'), (0, _bling.$)('#lat'), (0, _bling.$)('#long'));
 
 (0, _map2.default)((0, _bling.$)('#map'));
 
 (0, _typeAhead2.default)((0, _bling.$)('.search'));
+
+/***/ }),
+/* 33 */,
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = __webpack_require__(3);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _bling = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function getLikes(e) {
+    var _this = this;
+
+    e.preventDefault();
+    _axios2.default.post(this.action).then(function (res) {
+        var isLiked = _this.like.classList.toggle('heart__button--hearted');
+        (0, _bling.$)('.heart-count').textContent = res.data.likes.length;
+        if (isLiked) {
+            _this.like.classList.add('heart__button--float');
+            setTimeout(function () {
+                return _this.like.classList.remove('heart__button--float');
+            }, 1500);
+        }
+    });
+};
+
+exports.default = getLikes;
 
 /***/ })
 /******/ ]);

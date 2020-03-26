@@ -22,10 +22,10 @@ exports.logOut = (req, res) => {
 
 exports.isLoggedIn = (req, res, next) => {
     // use passport method
-    if(req.isAuthenticated()) {
-        next();
+    if (req.isAuthenticated()) {
+        return next();
     }
-    req.flash('error', 'Log in to add a place');
+    req.flash('error', 'Log in required');
     res.redirect('/login');
 };
 
