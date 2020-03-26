@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Restaurant = mongoose.model('Restaurant');
+const User = mongoose.model('User');
 
 const multer = require('multer');
 const jimp = require('jimp');
@@ -136,4 +137,22 @@ exports.searchNearby = async (req, res) => {
 
 exports.getMap = (req, res) => {
     res.render('map', { title: 'Map' });
+}
+
+exports.likePlace = async (req, res) => {
+    const likes = req.user.likes.map(obj => obj.toString());
+    const operator = likes.includes(req.params.id) ? '$pull' : '$addToSet';
+    const user = await User.findByIdAndUpdate(
+        req.user._id,
+        { [operator]: { likes: req.params.id }},
+        { new: true }
+    );
+    res.json(user);
+};
+
+exports.getLikes = async (req, res) => {
+    const restaurants = await Restaurant.find({
+        _id: { $in: req.user.likes }
+    });
+    res.render('restaurants', { title: 'My Favorites', restaurants });
 }
