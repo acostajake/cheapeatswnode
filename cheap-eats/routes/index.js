@@ -49,8 +49,12 @@ router.post('/account/reset/:token',
     catchErrors(authController.updatePasswords)
 );
 
+router.get('/map', restaurantController.getMap);
+
 // handle API
 router.get('/api/search', catchErrors(restaurantController.search));
+
+router.get('/api/restaurants/near', catchErrors(restaurantController.searchNearby));
 
 module.exports = router;
  

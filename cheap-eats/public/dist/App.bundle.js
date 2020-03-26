@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,181 +73,10 @@
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-function autoComplete(input, latInput, longInput) {
-    if (!input) return;
-    var dropdown = new google.maps.places.Autocomplete(input);
-    dropdown.addListener('place_changed', function () {
-        var place = dropdown.getPlace();
-        latInput.value = place.geometry.location.lat();
-        longInput.value = place.geometry.location.lng();
-    });
-    input.on('keydown', function (e) {
-        if (e.keyCode === 13) e.preventDefault();
-    });
-}
-
-exports.default = autoComplete;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-// based on https://gist.github.com/paulirish/12fb951a8b893a454b32
-
-var $ = document.querySelector.bind(document);
-var $$ = document.querySelectorAll.bind(document);
-
-Node.prototype.on = window.on = function (name, fn) {
-  this.addEventListener(name, fn);
-};
-
-NodeList.prototype.__proto__ = Array.prototype; // eslint-disable-line
-
-NodeList.prototype.on = NodeList.prototype.addEventListener = function (name, fn) {
-  this.forEach(function (elem) {
-    elem.on(name, fn);
-  });
-};
-
-exports.$ = $;
-exports.$$ = $$;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(2);
-
-var _bling = __webpack_require__(1);
-
-var _autoComplete = __webpack_require__(0);
-
-var _autoComplete2 = _interopRequireDefault(_autoComplete);
-
-var _typeAhead = __webpack_require__(5);
-
-var _typeAhead2 = _interopRequireDefault(_typeAhead);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-(0, _autoComplete2.default)((0, _bling.$)('#address'), (0, _bling.$)('#lat'), (0, _bling.$)('#long'));
-
-(0, _typeAhead2.default)((0, _bling.$)('.search'));
-
-/***/ }),
-/* 4 */,
-/* 5 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _axios = __webpack_require__(13);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _dompurify = __webpack_require__(32);
-
-var _dompurify2 = _interopRequireDefault(_dompurify);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function searchResultsHtml(results) {
-    return results.map(function (result) {
-        return '<a href="/restaurant/' + result.slug + '" class="search__result">\n        <span>' + result.name + '</span></a>';
-    }).join('');
-};
-
-function typeAhead(search) {
-    if (!search) return;
-    var searchInput = search.querySelector('input[name="search"]');
-    var searchResults = search.querySelector('.search__results');
-
-    searchInput.on('input', function () {
-        var _this = this;
-
-        if (!this.value) {
-            searchResults.style.display = 'none';
-            return;
-        }
-
-        searchResults.style.display = 'block';
-
-        _axios2.default.get('/api/search?q=' + this.value).then(function (res) {
-            if (res.data.length) {
-                console.log(res.data);
-                searchResults.innerHTML = _dompurify2.default.sanitize(searchResultsHtml(res.data));
-                return;
-            }
-            searchResults.style.display = _dompurify2.default.sanitize('<div class=\'search__result\'>No results found for ' + _this.value + '</div>');
-        })
-        // TODO: add sentry
-        .catch(function (err) {
-            throw Error(err);
-        });
-    });
-
-    searchInput.on('keyup', function (e) {
-        if (![13, 38, 40].includes(e.keyCode)) return;
-        var activeClass = 'search__result--active';
-        var current = search.querySelector('.' + activeClass);
-        var items = search.querySelectorAll('.search__result');
-        var next = void 0;
-        // handle nav tab list
-        if ((e.keyCode === 40 || e.keyCode === 9) && current) {
-            next = current.nextElementSibling || items[0];
-        } else if (e.keyCode === 40) {
-            next = items[0];
-        } else if (e.keyCode === 38 && current) {
-            next = current.previousElementSibling || items[items.length - 1];
-        } else if (e.keyCode === 38) {
-            next = items[items.length - 1];
-        } else if (e.keyCode === 13 && current.href) {
-            window.location = current.href;
-            return;
-        }
-        if (current) {
-            current.classList.remove(activeClass);
-        }
-        next.classList.add(activeClass);
-    });
-};
-
-exports.default = typeAhead;
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-var bind = __webpack_require__(12);
-var isBuffer = __webpack_require__(30);
+var bind = __webpack_require__(6);
+var isBuffer = __webpack_require__(28);
 
 /*global toString:true*/
 
@@ -546,14 +375,14 @@ module.exports = {
 };
 
 /***/ }),
-/* 7 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(6);
-var normalizeHeaderName = __webpack_require__(27);
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(25);
 
 var DEFAULT_CONTENT_TYPE = {
   'Content-Type': 'application/x-www-form-urlencoded'
@@ -569,10 +398,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(8);
+    adapter = __webpack_require__(2);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(8);
+    adapter = __webpack_require__(2);
   }
   return adapter;
 }
@@ -640,21 +469,21 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 });
 
 module.exports = defaults;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(31)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)))
 
 /***/ }),
-/* 8 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
-var settle = __webpack_require__(20);
-var buildURL = __webpack_require__(22);
-var parseHeaders = __webpack_require__(28);
-var isURLSameOrigin = __webpack_require__(26);
-var createError = __webpack_require__(11);
+var utils = __webpack_require__(0);
+var settle = __webpack_require__(18);
+var buildURL = __webpack_require__(20);
+var parseHeaders = __webpack_require__(26);
+var isURLSameOrigin = __webpack_require__(24);
+var createError = __webpack_require__(5);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -733,7 +562,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(24);
+      var cookies = __webpack_require__(22);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ? cookies.read(config.xsrfCookieName) : undefined;
@@ -808,7 +637,7 @@ module.exports = function xhrAdapter(config) {
 };
 
 /***/ }),
-/* 9 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -834,7 +663,7 @@ Cancel.prototype.__CANCEL__ = true;
 module.exports = Cancel;
 
 /***/ }),
-/* 10 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -845,13 +674,13 @@ module.exports = function isCancel(value) {
 };
 
 /***/ }),
-/* 11 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(19);
+var enhanceError = __webpack_require__(17);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -869,7 +698,7 @@ module.exports = function createError(message, config, code, request, response) 
 };
 
 /***/ }),
-/* 12 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -886,25 +715,170 @@ module.exports = function bind(fn, thisArg) {
 };
 
 /***/ }),
-/* 13 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(14);
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function autoComplete(input, latInput, longInput) {
+    if (!input) return;
+    var dropdown = new google.maps.places.Autocomplete(input);
+    dropdown.addListener('place_changed', function () {
+        var place = dropdown.getPlace();
+        latInput.value = place.geometry.location.lat();
+        longInput.value = place.geometry.location.lng();
+    });
+    input.on('keydown', function (e) {
+        if (e.keyCode === 13) e.preventDefault();
+    });
+}
+
+exports.default = autoComplete;
 
 /***/ }),
-/* 14 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
-var bind = __webpack_require__(12);
-var Axios = __webpack_require__(16);
-var defaults = __webpack_require__(7);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// based on https://gist.github.com/paulirish/12fb951a8b893a454b32
+
+var $ = document.querySelector.bind(document);
+var $$ = document.querySelectorAll.bind(document);
+
+Node.prototype.on = window.on = function (name, fn) {
+  this.addEventListener(name, fn);
+};
+
+NodeList.prototype.__proto__ = Array.prototype; // eslint-disable-line
+
+NodeList.prototype.on = NodeList.prototype.addEventListener = function (name, fn) {
+  this.forEach(function (elem) {
+    elem.on(name, fn);
+  });
+};
+
+exports.$ = $;
+exports.$$ = $$;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _axios = __webpack_require__(11);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _dompurify = __webpack_require__(29);
+
+var _dompurify2 = _interopRequireDefault(_dompurify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function searchResultsHtml(results) {
+    return results.map(function (result) {
+        return '<a href="/restaurant/' + result.slug + '" class="search__result">\n        <span>' + result.name + '</span></a>';
+    }).join('');
+};
+
+function typeAhead(search) {
+    if (!search) return;
+    var searchInput = search.querySelector('input[name="search"]');
+    var searchResults = search.querySelector('.search__results');
+
+    searchInput.on('input', function () {
+        var _this = this;
+
+        if (!this.value) {
+            searchResults.style.display = 'none';
+            return;
+        }
+
+        searchResults.style.display = 'block';
+
+        _axios2.default.get('/api/search?q=' + this.value).then(function (res) {
+            if (res.data.length) {
+                console.log(res.data);
+                searchResults.innerHTML = _dompurify2.default.sanitize(searchResultsHtml(res.data));
+                return;
+            }
+            searchResults.style.display = _dompurify2.default.sanitize('<div class=\'search__result\'>No results found for ' + _this.value + '</div>');
+        })
+        // TODO: add sentry
+        .catch(function (err) {
+            throw Error(err);
+        });
+    });
+
+    searchInput.on('keyup', function (e) {
+        if (![13, 38, 40].includes(e.keyCode)) return;
+        var activeClass = 'search__result--active';
+        var current = search.querySelector('.' + activeClass);
+        var items = search.querySelectorAll('.search__result');
+        var next = void 0;
+        // handle nav tab list
+        if ((e.keyCode === 40 || e.keyCode === 9) && current) {
+            next = current.nextElementSibling || items[0];
+        } else if (e.keyCode === 40) {
+            next = items[0];
+        } else if (e.keyCode === 38 && current) {
+            next = current.previousElementSibling || items[items.length - 1];
+        } else if (e.keyCode === 38) {
+            next = items[items.length - 1];
+        } else if (e.keyCode === 13 && current.href) {
+            window.location = current.href;
+            return;
+        }
+        if (current) {
+            current.classList.remove(activeClass);
+        }
+        next.classList.add(activeClass);
+    });
+};
+
+exports.default = typeAhead;
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(12);
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var utils = __webpack_require__(0);
+var bind = __webpack_require__(6);
+var Axios = __webpack_require__(14);
+var defaults = __webpack_require__(1);
 
 /**
  * Create an instance of Axios
@@ -937,15 +911,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(9);
-axios.CancelToken = __webpack_require__(15);
-axios.isCancel = __webpack_require__(10);
+axios.Cancel = __webpack_require__(3);
+axios.CancelToken = __webpack_require__(13);
+axios.isCancel = __webpack_require__(4);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(29);
+axios.spread = __webpack_require__(27);
 
 module.exports = axios;
 
@@ -953,13 +927,13 @@ module.exports = axios;
 module.exports.default = axios;
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(9);
+var Cancel = __webpack_require__(3);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -1016,16 +990,16 @@ CancelToken.source = function source() {
 module.exports = CancelToken;
 
 /***/ }),
-/* 16 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(7);
-var utils = __webpack_require__(6);
-var InterceptorManager = __webpack_require__(17);
-var dispatchRequest = __webpack_require__(18);
+var defaults = __webpack_require__(1);
+var utils = __webpack_require__(0);
+var InterceptorManager = __webpack_require__(15);
+var dispatchRequest = __webpack_require__(16);
 
 /**
  * Create a new instance of Axios
@@ -1101,13 +1075,13 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = Axios;
 
 /***/ }),
-/* 17 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
+var utils = __webpack_require__(0);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -1159,18 +1133,18 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 module.exports = InterceptorManager;
 
 /***/ }),
-/* 18 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
-var transformData = __webpack_require__(21);
-var isCancel = __webpack_require__(10);
-var defaults = __webpack_require__(7);
-var isAbsoluteURL = __webpack_require__(25);
-var combineURLs = __webpack_require__(23);
+var utils = __webpack_require__(0);
+var transformData = __webpack_require__(19);
+var isCancel = __webpack_require__(4);
+var defaults = __webpack_require__(1);
+var isAbsoluteURL = __webpack_require__(23);
+var combineURLs = __webpack_require__(21);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -1232,7 +1206,7 @@ module.exports = function dispatchRequest(config) {
 };
 
 /***/ }),
-/* 19 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1260,13 +1234,13 @@ module.exports = function enhanceError(error, config, code, request, response) {
 };
 
 /***/ }),
-/* 20 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(11);
+var createError = __webpack_require__(5);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -1286,13 +1260,13 @@ module.exports = function settle(resolve, reject, response) {
 };
 
 /***/ }),
-/* 21 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
+var utils = __webpack_require__(0);
 
 /**
  * Transform the data for a request or a response
@@ -1312,13 +1286,13 @@ module.exports = function transformData(data, headers, fns) {
 };
 
 /***/ }),
-/* 22 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
+var utils = __webpack_require__(0);
 
 function encode(val) {
   return encodeURIComponent(val).replace(/%40/gi, '@').replace(/%3A/gi, ':').replace(/%24/g, '$').replace(/%2C/gi, ',').replace(/%20/g, '+').replace(/%5B/gi, '[').replace(/%5D/gi, ']');
@@ -1377,7 +1351,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 };
 
 /***/ }),
-/* 23 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1396,13 +1370,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 };
 
 /***/ }),
-/* 24 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
+var utils = __webpack_require__(0);
 
 module.exports = utils.isStandardBrowserEnv() ?
 
@@ -1455,7 +1429,7 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 25 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1477,13 +1451,13 @@ module.exports = function isAbsoluteURL(url) {
 };
 
 /***/ }),
-/* 26 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
+var utils = __webpack_require__(0);
 
 module.exports = utils.isStandardBrowserEnv() ?
 
@@ -1546,13 +1520,13 @@ function nonStandardBrowserEnv() {
 }();
 
 /***/ }),
-/* 27 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
+var utils = __webpack_require__(0);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -1564,13 +1538,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 };
 
 /***/ }),
-/* 28 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var utils = __webpack_require__(6);
+var utils = __webpack_require__(0);
 
 // Headers whose duplicates are ignored by node
 // c.f. https://nodejs.org/api/http.html#http_message_headers
@@ -1620,7 +1594,7 @@ module.exports = function parseHeaders(headers) {
 };
 
 /***/ }),
-/* 29 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1654,7 +1628,7 @@ module.exports = function spread(callback) {
 };
 
 /***/ }),
-/* 30 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1672,200 +1646,7 @@ module.exports = function isBuffer(obj) {
 };
 
 /***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// shim for using process in browser
-var process = module.exports = {};
-
-// cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-    throw new Error('setTimeout has not been defined');
-}
-function defaultClearTimeout() {
-    throw new Error('clearTimeout has not been defined');
-}
-(function () {
-    try {
-        if (typeof setTimeout === 'function') {
-            cachedSetTimeout = setTimeout;
-        } else {
-            cachedSetTimeout = defaultSetTimout;
-        }
-    } catch (e) {
-        cachedSetTimeout = defaultSetTimout;
-    }
-    try {
-        if (typeof clearTimeout === 'function') {
-            cachedClearTimeout = clearTimeout;
-        } else {
-            cachedClearTimeout = defaultClearTimeout;
-        }
-    } catch (e) {
-        cachedClearTimeout = defaultClearTimeout;
-    }
-})();
-function runTimeout(fun) {
-    if (cachedSetTimeout === setTimeout) {
-        //normal enviroments in sane situations
-        return setTimeout(fun, 0);
-    }
-    // if setTimeout wasn't available but was latter defined
-    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-        cachedSetTimeout = setTimeout;
-        return setTimeout(fun, 0);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedSetTimeout(fun, 0);
-    } catch (e) {
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-            return cachedSetTimeout.call(null, fun, 0);
-        } catch (e) {
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-            return cachedSetTimeout.call(this, fun, 0);
-        }
-    }
-}
-function runClearTimeout(marker) {
-    if (cachedClearTimeout === clearTimeout) {
-        //normal enviroments in sane situations
-        return clearTimeout(marker);
-    }
-    // if clearTimeout wasn't available but was latter defined
-    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-        cachedClearTimeout = clearTimeout;
-        return clearTimeout(marker);
-    }
-    try {
-        // when when somebody has screwed with setTimeout but no I.E. maddness
-        return cachedClearTimeout(marker);
-    } catch (e) {
-        try {
-            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-            return cachedClearTimeout.call(null, marker);
-        } catch (e) {
-            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-            return cachedClearTimeout.call(this, marker);
-        }
-    }
-}
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-    if (!draining || !currentQueue) {
-        return;
-    }
-    draining = false;
-    if (currentQueue.length) {
-        queue = currentQueue.concat(queue);
-    } else {
-        queueIndex = -1;
-    }
-    if (queue.length) {
-        drainQueue();
-    }
-}
-
-function drainQueue() {
-    if (draining) {
-        return;
-    }
-    var timeout = runTimeout(cleanUpNextTick);
-    draining = true;
-
-    var len = queue.length;
-    while (len) {
-        currentQueue = queue;
-        queue = [];
-        while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
-        }
-        queueIndex = -1;
-        len = queue.length;
-    }
-    currentQueue = null;
-    draining = false;
-    runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-    var args = new Array(arguments.length - 1);
-    if (arguments.length > 1) {
-        for (var i = 1; i < arguments.length; i++) {
-            args[i - 1] = arguments[i];
-        }
-    }
-    queue.push(new Item(fun, args));
-    if (queue.length === 1 && !draining) {
-        runTimeout(drainQueue);
-    }
-};
-
-// v8 likes predictible objects
-function Item(fun, array) {
-    this.fun = fun;
-    this.array = array;
-}
-Item.prototype.run = function () {
-    this.fun.apply(null, this.array);
-};
-process.title = 'browser';
-process.browser = true;
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) {
-    return [];
-};
-
-process.binding = function (name) {
-    throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () {
-    return '/';
-};
-process.chdir = function (dir) {
-    throw new Error('process.chdir is not supported');
-};
-process.umask = function () {
-    return 0;
-};
-
-/***/ }),
-/* 32 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2676,6 +2457,310 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return DOMPurify;
 });
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout() {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+})();
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch (e) {
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch (e) {
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e) {
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e) {
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while (len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) {
+    return [];
+};
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () {
+    return '/';
+};
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function () {
+    return 0;
+};
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(10);
+
+var _bling = __webpack_require__(8);
+
+var _autoComplete = __webpack_require__(7);
+
+var _autoComplete2 = _interopRequireDefault(_autoComplete);
+
+var _map = __webpack_require__(33);
+
+var _map2 = _interopRequireDefault(_map);
+
+var _typeAhead = __webpack_require__(9);
+
+var _typeAhead2 = _interopRequireDefault(_typeAhead);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(0, _autoComplete2.default)((0, _bling.$)('#address'), (0, _bling.$)('#lat'), (0, _bling.$)('#long'));
+
+(0, _map2.default)((0, _bling.$)('#map'));
+
+(0, _typeAhead2.default)((0, _bling.$)('.search'));
+
+/***/ }),
+/* 32 */,
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _axios = __webpack_require__(11);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _bling = __webpack_require__(8);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// use current location -> navigator.geolocation.getCurrentPosition
+
+var mapOptions = { center: { lat: 43.2, lng: -79.8 }, zoom: 11 };
+
+function loadPlaces(map) {
+    var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 43.2;
+    var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -79.8;
+
+    _axios2.default.get('/api/restaurants/near?lat=' + lat + '&lng=' + lng).then(function (res) {
+        var places = res.data;
+        if (!places.length) {
+            alert('Try again! Nothing found.');
+            return;
+        }
+        console.log(places);
+
+        var bounds = new google.maps.LatLngBounds();
+        var infoWindow = new google.maps.InfoWindow();
+
+        var markers = places.map(function (place) {
+            var _place$location$coord = _slicedToArray(place.location.coordinates, 2),
+                lngMarker = _place$location$coord[0],
+                latMarker = _place$location$coord[1];
+
+            var position = { lat: latMarker, lng: lngMarker };
+            bounds.extend(position);
+            var marker = new google.maps.Marker({ map: map, position: position });
+            marker.place = place;
+            return marker;
+        });
+
+        markers.forEach(function (marker) {
+            return marker.addListener('click', function () {
+                var html = '\n                <div class=\'popup>\n                    <a href=\'/restaurant/' + this.place.slug + '\'}>\n                        <img src=\'uploads/' + (this.place.photo || defaultRest.png) + '\' />\n                        <p>' + this.place.name + ' at ' + this.place.location.address + '</p>\n                    </a>\n                </div>\n                ';
+                infoWindow.setContent(html);
+                infoWindow.open(map, this);
+            });
+        });
+
+        map.setCenter(bounds.getCenter());
+        map.fitBounds(bounds);
+    });
+};
+
+function makeMap(mapDiv) {
+    if (!mapDiv) return;
+    var map = new google.maps.Map(mapDiv, mapOptions);
+    loadPlaces(map);
+    var input = (0, _bling.$)('[name="geolocate"]');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', function () {
+        var place = autocomplete.getPlace();
+        loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng());
+    });
+}
+
+exports.default = makeMap;
 
 /***/ })
 /******/ ]);
