@@ -113,3 +113,27 @@ exports.search = async (req, res) => {
     }).limit(8);
     res.json(restaurants);
 };
+
+exports.searchNearby = async (req, res) => {
+    const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
+    const queryData = {
+        location: {
+            $near: {
+                $geometry: {
+                    type: 'Point',
+                    coordinates
+                },
+                $maxDistance: 10000 // = 10km or 6.2mi
+            }
+        }
+    }
+    const restaurants = await Restaurant
+        .find(queryData)
+        .select('slug name description location photo')
+        .limit(8);
+    res.json(restaurants);
+};
+
+exports.getMap = (req, res) => {
+    res.render('map', { title: 'Map' });
+}
