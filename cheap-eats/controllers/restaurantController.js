@@ -62,7 +62,8 @@ exports.getRestaurants = async (req, res) => {
 };
 
 exports.getRestaurantBySlug = async (req, res, next) => {
-    const restaurant = await Restaurant.findOne({ slug: req.params.slug });
+    const restaurant = await Restaurant.findOne({ slug: req.params.slug })
+        .populate('author reviews');
     if(!restaurant) return next();
     res.render('restaurant', {
         title: restaurant.name,

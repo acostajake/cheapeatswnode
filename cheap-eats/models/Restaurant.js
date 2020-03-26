@@ -39,6 +39,10 @@ const restaurantSchema = new mongoose.Schema({
         ref: 'User',
         required: 'You must supply an author'
     }
+}, {
+    // add joined results to model for access. otherwise have to call explicitly
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 });
 
 // define index for lookup
@@ -74,6 +78,13 @@ restaurantSchema.statics.getTagsList = function() {
         { $group: { _id: '$tags', count: { $sum: 1 } }},
         { $sort: { count: -1 }}
     ]);
-}
+};
+
+// kind-of join
+restaurantSchema.virtual('reviews', {
+    ref: 'Review', // model to link
+    localField: '_id', // from restaurant 
+    foreignField: 'restaurant' // from review model
+});
 
 module.exports = mongoose.model('Restaurant', restaurantSchema);
