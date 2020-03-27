@@ -69,7 +69,7 @@ restaurantSchema.pre('save', async function(next) {
     this.slug = slug(this.name);
 
     // handle duplicated names being returned
-    const checkSlug = new RegExp(`^(${this.slug})((-[0-9]*)?)$`, 'i');
+    const slugRegExp = new RegExp(`^(${this.slug})((-[0-9]*)?)$`, 'i');
     const storesWithSlug = await this.constructor.find({ restaurant: slugRegExp });
     if(storesWithSlug.length) {
         this.slug = `${this.slug}-${storesWithSlug.length + 1}`
