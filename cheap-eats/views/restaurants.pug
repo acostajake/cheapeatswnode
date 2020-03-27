@@ -1,10 +1,13 @@
 extends layout
 
+include mixins/pagination
 include mixins/restaurantCard
 
 block content
     .inner
         h2 title
+        .stores
             each restaurant in restaurants
                 +restaurantCard(restaurant)
+        +pagination(page, pages, count)
                  
