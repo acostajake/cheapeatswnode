@@ -54,11 +54,28 @@ exports.createRestaurant = async (req, res) => {
 };
 
 exports.getRestaurants = async (req, res) => {
-    const restaurants = await Restaurant.find();
+    const page = req.params.page || 1;
+    const limit = 6;
+    const skip = (page * limit) - limit;
+    const restaurantsPromise = Restaurant
+        .find()
+        .skip(skip)
+        .limit(limit)
+        .sort({ created: 'desc' });
+    const countPromise = Restaurant.count();
+    const [restaurants, count] = await Promise.all([restaurantsPromise, countPromise])
+    const pages = Math.ceil(count / limit);
+    if(!restaurants.length && skip) {
+        req.flash('info', `Page ${page} not found. Redirected to ${pages} of ${pages}`);
+        res.redirect(`/restaurants/page/${pages}`);
+    }
     res.render('restaurants', {
         title: 'Update',
+        count,
+        page, 
+        pages, 
         restaurants
-    })
+    });
 };
 
 exports.getRestaurantBySlug = async (req, res, next) => {
@@ -81,7 +98,7 @@ exports.getRestaurantsByTag = async (req, res) => {
 };
 
 const confirmAuthor = (restaurant, user) => {
-    if(!restaurant.author.equals(user.id)) {
+    if(!restaurant.author.equals(user._id)) {
         throw Error('You can only edit a place you added.')
     }
 };
