@@ -21,9 +21,10 @@ router.post('/add/:id',
 
 router.get('/map', restaurantController.getMap);
 
-router.get('/restaurant/:slug', catchErrors(restaurantController.getRestaurantBySlug));
 router.get('/restaurants', catchErrors(restaurantController.getRestaurants));
 router.get('/restaurants/:id/edit', catchErrors(restaurantController.editRestaurant));
+router.get('/restaurants/page/:page', catchErrors(restaurantController.getRestaurants));
+router.get('/restaurant/:slug', catchErrors(restaurantController.getRestaurantBySlug));
 
 router.post('/reviews/:id', authController.isLoggedIn, catchErrors(reviewController.addReview));
 
@@ -53,8 +54,6 @@ router.post('/account/reset/:token',
 );
 
 router.get('/likes', authController.isLoggedIn, catchErrors(restaurantController.getLikes));
-
-router.get('/map', restaurantController.getMap);
 
 router.get('/top', catchErrors(restaurantController.getTop));
 
