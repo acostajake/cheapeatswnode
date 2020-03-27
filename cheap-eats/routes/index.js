@@ -56,6 +56,8 @@ router.get('/likes', authController.isLoggedIn, catchErrors(restaurantController
 
 router.get('/map', restaurantController.getMap);
 
+router.get('/top', catchErrors(restaurantController.getTop));
+
 // handle API
 router.get('/api/search', catchErrors(restaurantController.search));
 

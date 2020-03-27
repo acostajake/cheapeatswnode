@@ -81,7 +81,7 @@ exports.getRestaurantsByTag = async (req, res) => {
 };
 
 const confirmAuthor = (restaurant, user) => {
-    if(!restaurant.author.equals(user._id)) {
+    if(!restaurant.author.equals(user.id)) {
         throw Error('You can only edit a place you added.')
     }
 };
@@ -156,4 +156,9 @@ exports.getLikes = async (req, res) => {
         _id: { $in: req.user.likes }
     });
     res.render('restaurants', { title: 'My Favorites', restaurants });
-}
+};
+
+exports.getTop = async (req, res) => {
+    const restaurants = await Restaurant.getTopList();
+    res.render('topPlaces', { restaurants, title: 'Best of Cheap Eats!' })
+};
