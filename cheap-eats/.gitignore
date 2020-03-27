@@ -1,0 +1,8 @@
+node_modules/
+data/
+.DS_Store
+*.log
+.idea
+variables.env
+variables.env.now
+package-lock.json
