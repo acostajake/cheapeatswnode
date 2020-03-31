@@ -24,6 +24,20 @@ const reviewSchema = new mongoose.Schema({
         type: Number,
         min: 1,
         max: 5
+    },
+    menuItem: {
+        name: {
+            type: String,
+            trim: true
+        },
+        price: {
+            type: Number,
+            max: 7
+        },
+        description: {
+            type: String,
+            trim: true
+        }
     }
 });
 

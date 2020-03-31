@@ -8,7 +8,6 @@ body {
   body:before {
     content: '';
     display: block;
-    background: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%);
     height: 10px;
     width: 100%; }
 
@@ -17,7 +16,7 @@ body {
   margin: 0 auto; }
   @media all and (max-width: 900px) {
     .inner {
-      padding: 2rem; } }
+      padding: 1rem; } }
 
 html {
   box-sizing: border-box; }
@@ -446,10 +445,12 @@ body {
   color: #303030; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-size: 5rem;
+  font-size: 4rem;
   font-family: 'Panama';
   font-weight: 600;
-  letter-spacing: -1px; }
+  letter-spacing: -1px;
+  margin-top: 4px;
+  text-align: center; }
 
 a {
   text-decoration: none;
@@ -467,11 +468,10 @@ p {
   position: relative;
   z-index: 2;
   margin: 0;
-  font-size: 40px;
+  font-size: 32px;
   z-index: 2;
   line-height: 1.1;
-  -ms-transform: skew(0, -3deg);
-      transform: skew(0, -3deg);
+  text-align: right !important;
   line-height: 1.1; }
   .title--long {
     font-size: 30px; }
@@ -483,9 +483,7 @@ p {
     height: 100%;
     display: block;
     position: absolute;
-    z-index: -1;
-    -ms-transform: skew(-5deg);
-        transform: skew(-5deg); }
+    z-index: -1; }
   .title a {
     border-bottom: 0;
     background-image: linear-gradient(to right, rgba(255, 196, 14, 0.8) 100%, rgba(255, 196, 14, 0.8) 50%); }
@@ -509,8 +507,7 @@ label {
 
 .form {
   background: white;
-  padding: 2rem;
-  box-shadow: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%); }
+  padding: 2rem; }
   .form + .form {
     margin-top: 4rem; }
   .form h2 {
@@ -642,7 +639,7 @@ label {
     .nav__link:hover, .nav__link--active {
       border-bottom-color: rgba(0, 0, 0, 0.2);
       border-right-color: rgba(0, 0, 0, 0.05);
-      background: linear-gradient(90deg, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%) fixed; }
+      background-color: rgba(255, 196, 14, 0.8); }
       .nav__link:hover svg, .nav__link--active svg {
         -ms-transform: scale(1.2);
             transform: scale(1.2); }
@@ -720,13 +717,13 @@ label {
 
 .store {
   background: white;
-  margin: 1.25em 0 0 1.25em;
+  margin: .75em 0 0 .75em;
   width: calc(33.3333% - 1.25em);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); }
   .store--wide {
     width: 100%; }
   .store__details {
-    padding: 2rem; }
+    padding: 1rem; }
     .store__details p {
       line-height: 1.2;
       margin-bottom: 0; }
@@ -743,8 +740,8 @@ label {
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.2);
   margin-bottom: 50px;
-  padding-top: 10px;
-  padding-bottom: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   display: -ms-flexbox;
   display: flex;
   color: white;
@@ -773,11 +770,9 @@ label {
     width: 100%;
     top: 0;
     right: 0;
-    background: linear-gradient(45deg, #05b3d6 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #0958ec 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, #d209ec 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #05e129 100%, rgba(5, 225, 41, 0) 70%);
+    background-color: #D1DDFE;
     opacity: 0.6;
-    z-index: 1;
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%); }
+    z-index: 1; }
   .store__hero img {
     height: 100%;
     width: 100%;
@@ -785,9 +780,7 @@ label {
     right: 0;
     position: absolute;
     left: 0;
-    object-fit: cover;
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%); }
+    object-fit: cover; }
 
 .tags {
   margin: 0;
@@ -826,6 +819,8 @@ label {
     display: -ms-flexbox;
     display: flex;
     padding-left: 10px;
+    margin-left: 8px;
+    margin-right: 8px;
     -webkit-clip-path: polygon(10px 0%, 100% 1%, 100% 100%, 10px 100%, 0% 50%);
             clip-path: polygon(10px 0%, 100% 1%, 100% 100%, 10px 100%, 0% 50%); }
     .tag__link--active {
@@ -955,7 +950,6 @@ label {
     left: 0;
     content: '';
     display: block;
-    background: linear-gradient(0, #48ded4 0%, #a026bf 20%, #e82c75 60%, #FFC40E 85%, #48ded4 95%);
     position: absolute;
     height: 100%;
     background-attachment: fixed; }
@@ -1105,7 +1099,8 @@ label {
   background: #FFC40E;
   color: #303030;
   font-family: 'Panama';
-  font-weight: 600; }
+  font-weight: 600;
+  margin-top: 8px; }
 
 .avatar {
   min-width: 50px;

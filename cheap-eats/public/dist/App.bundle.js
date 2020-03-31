@@ -76,7 +76,7 @@
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var bind = __webpack_require__(8);
-var isBuffer = __webpack_require__(31);
+var isBuffer = __webpack_require__(30);
 
 /*global toString:true*/
 
@@ -838,14 +838,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // use current location -> navigator.geolocation.getCurrentPosition
 
-var mapOptions = { center: { lat: 43.2, lng: -79.8 }, zoom: 11 };
+var mapOptions = { center: { lat: 34.065, lng: -118.3592 }, zoom: 12 };
 
 function loadPlaces(map) {
-    var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 43.2;
-    var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -79.8;
+    var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 34.065;
+    var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -118.3592;
 
     _axios2.default.get('/api/restaurants/near?lat=' + lat + '&lng=' + lng).then(function (res) {
         var places = res.data;
+        console.log(places);
         if (!places.length) {
             alert('Try again! Nothing found.');
             return;
@@ -908,7 +909,7 @@ var _axios = __webpack_require__(2);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _dompurify = __webpack_require__(30);
+var _dompurify = __webpack_require__(31);
 
 var _dompurify2 = _interopRequireDefault(_dompurify);
 
@@ -1746,6 +1747,24 @@ module.exports = function spread(callback) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+/*!
+ * Determine if an object is a Buffer
+ *
+ * @author   Feross Aboukhadijeh <https://feross.org>
+ * @license  MIT
+ */
+
+module.exports = function isBuffer(obj) {
+  return obj != null && obj.constructor != null && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
+};
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 var __WEBPACK_AMD_DEFINE_RESULT__;
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -2553,24 +2572,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
     return DOMPurify;
 });
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <https://feross.org>
- * @license  MIT
- */
-
-module.exports = function isBuffer(obj) {
-  return obj != null && obj.constructor != null && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj);
-};
 
 /***/ }),
 /* 32 */

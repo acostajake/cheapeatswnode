@@ -8,7 +8,6 @@ body {
   &:before {
     content: '';
     display: block;
-    background: $grad;
     height: 10px;
     width: 100%;
   }
@@ -18,6 +17,6 @@ body {
   max-width:900px;
   margin: 0 auto;
   @media all and (max-width: 900px) {
-    padding: 2rem;
+    padding: 1rem;
   }
 }

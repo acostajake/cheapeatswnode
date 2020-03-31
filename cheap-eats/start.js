@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // import env variables from our variables.env file
-require('dotenv').config({ path: 'variables.env.now' });
+require('dotenv').config({ path: 'variables.env' });
 
 // Connect to our db and handle any bad connections
 mongoose.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });

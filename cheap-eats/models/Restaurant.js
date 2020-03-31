@@ -106,7 +106,7 @@ restaurantSchema.statics.getTopList = function() {
         }},
         { $sort: { averageRating: -1 } },
         { $limit: 8 }        
-    ])
+    ]);
 };
 
 // kind-of join

@@ -16,11 +16,13 @@ body {
   color:$black;
 }
 
-h1, h2, h3, h4, h5, h6, {
-  font-size: 5rem;
+h1, h2, h3, h4, h5, h6 {
+  font-size: 4rem;
   font-family: 'Panama';
   font-weight: 600;
   letter-spacing:-1px;
+  margin-top: 4px;
+  text-align: center;
 }
 
 a {
@@ -42,10 +44,9 @@ p {
   position: relative;
   z-index: 2;
   margin:0;
-  font-size: 40px;
+  font-size: 32px;
   z-index: 2;
   line-height:1.1;
-  transform: skew(0, -3deg);
   &--long {
     font-size: 30px;
   }
@@ -59,8 +60,8 @@ p {
     display: block;
     position: absolute;
     z-index: -1;
-    transform:skew(-5deg)
   }
+  text-align: right !important;
   line-height:1.1;
   // inline link inside
   a {
