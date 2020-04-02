@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const authController = require('../controllers/authController');
+const menuController = require('../controllers/menuController');
 const restaurantController = require('../controllers/restaurantController');
 const reviewController = require('../controllers/reviewController');
 const userController = require('../controllers/userController');
@@ -20,6 +21,9 @@ router.post('/add/:id',
     catchErrors(restaurantController.updateRestaurant));
 
 router.get('/map', restaurantController.getMap);
+
+router.get('/menus', catchErrors(menuController.getMenus));
+router.post('/menus', catchErrors(menuController.addMenuItem));
 
 router.get('/restaurants', catchErrors(restaurantController.getRestaurants));
 router.get('/restaurants/:id/edit', catchErrors(restaurantController.editRestaurant));

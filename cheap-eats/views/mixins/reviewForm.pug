@@ -1,9 +1,5 @@
 mixin reviewForm(restaurant)
     form.reviewer(action=`/reviews/${restaurant._id}` method='POST')
-
-        label(for='menuItem') Menu Item
-        input(type='text' id='menuItem' name='menuItem' value=(restaurant.menuItem && restaurant.menuItem.name))
-
         textarea(name='text' placeholder=`What should people know about ${restaurant.name}?`)
         .reviewer__meta
             .reviewer__stars

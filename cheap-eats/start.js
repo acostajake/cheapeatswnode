@@ -11,6 +11,7 @@ mongoose.connection.on('error', (err) => {
 });
 
 // import models
+require('./models/Menu');
 require('./models/Restaurant');
 require('./models/Review');
 require('./models/User');
