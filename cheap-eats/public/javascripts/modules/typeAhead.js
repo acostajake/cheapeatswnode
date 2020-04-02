@@ -10,8 +10,8 @@ function searchResultsHtml(results) {
 
 function typeAhead(search) {
     if(!search) return;
-    const searchInput = search.querySelector('input[name="search"]');
-    const searchResults = search.querySelector('.search__results');
+    const searchInput = search.querySelectorAll('input[name="search"]');
+    const searchResults = search.querySelectorAll('.search__results');
 
     searchInput.on('input', function() {
         if(!this.value) {

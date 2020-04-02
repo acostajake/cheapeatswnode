@@ -5,18 +5,10 @@ html {
 body {
   background: #262161;
   background: #efefef; }
-  body:before {
-    content: '';
-    display: block;
-    height: 10px;
-    width: 100%; }
 
 .inner {
   max-width: 900px;
   margin: 0 auto; }
-  @media all and (max-width: 900px) {
-    .inner {
-      padding: 1rem; } }
 
 html {
   box-sizing: border-box; }
@@ -448,7 +440,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 4rem;
   font-family: 'Nunito Sans';
   font-weight: 600;
-  margin-top: 4px;
+  margin-top: 2rem;
   text-align: center; }
 
 a {
@@ -484,6 +476,7 @@ p {
     position: absolute;
     z-index: -1; }
   .title a {
+    padding: 4px;
     font-size: 20px;
     border-bottom: 0;
     background-image: linear-gradient(to right, rgba(255, 196, 14, 0.8) 100%, rgba(255, 196, 14, 0.8) 50%); }
@@ -554,7 +547,7 @@ label {
 .flash {
   background: white;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
-  margin-bottom: 2rem;
+  margin: 1rem 4rem;
   padding: 2rem;
   position: relative;
   z-index: 1;
@@ -789,6 +782,7 @@ label {
   list-style: none;
   display: -ms-flexbox;
   display: flex;
+  margin-top: 1rem;
   margin-bottom: 2rem;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap; }
@@ -840,7 +834,7 @@ label {
     background-clip: padding-box; }
 
 .single__hero {
-  height: 500px;
+  height: 400px;
   position: relative;
   overflow: hidden;
   display: -ms-flexbox;
@@ -859,8 +853,8 @@ label {
     width: 100%;
     top: 0;
     right: 0;
-    background: linear-gradient(45deg, #05b3d6 0%, rgba(5, 179, 214, 0) 70%), linear-gradient(135deg, #0958ec 10%, rgba(9, 88, 236, 0) 80%), linear-gradient(225deg, #d209ec 10%, rgba(210, 9, 236, 0) 80%), linear-gradient(315deg, #05e129 100%, rgba(5, 225, 41, 0) 70%);
-    opacity: 0.6;
+    background-color: #303030;
+    opacity: 0.3;
     z-index: 1;
     -webkit-clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2vw), 0% 100%);
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 2vw), 0% 100%); }
@@ -996,7 +990,7 @@ label {
   position: relative;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
   margin-bottom: 2rem;
-  padding: 4px; }
+  padding: 4px 16px; }
   .reviewer__stars {
     display: -ms-flexbox;
     display: flex;

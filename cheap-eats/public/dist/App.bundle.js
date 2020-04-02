@@ -923,8 +923,8 @@ function searchResultsHtml(results) {
 
 function typeAhead(search) {
     if (!search) return;
-    var searchInput = search.querySelector('input[name="search"]');
-    var searchResults = search.querySelector('.search__results');
+    var searchInput = search.querySelectorAll('input[name="search"]');
+    var searchResults = search.querySelectorAll('.search__results');
 
     searchInput.on('input', function () {
         var _this = this;

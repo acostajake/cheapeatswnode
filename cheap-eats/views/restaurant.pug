@@ -7,12 +7,13 @@ block content
     .single
         .single__hero
             img.single__image(src=`/uploads/${restaurant.photo || 'defaultRest.png'}`)
-            h3.title.title--single
+            h3.title
                 a(href=`/restaurants/${restaurant.slug}`) #{restaurant.name}
 
     .single__details.inner
+        - const locationName = restaurant && restaurant.location.address.split(',').slice(1)
         img.single__map(src=h.staticMap(restaurant.location.coordinates))
-        p.single__location= restaurant.location.address
+        p.single__location= locationName
         p.restaurant.description
 
         if restaurant.tags
