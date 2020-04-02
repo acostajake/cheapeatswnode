@@ -1,0 +1,18 @@
+mixin menuForm()
+    form(action=`/menus` method='POST')
+        .reviewer
+            .search
+              input.search__input(type="text" placeholder="Tag the restaurant" name="search")
+              .search__results
+            label(for='menuItem') Menu Item
+            input(type='text' name='menuItem')
+            .reviewer__stars
+            - const choices = ['$3', '$4', '$5', '$6', '$7']
+            - const tags = []
+            ul.tags
+                label(for='choice') Price Point
+                each choice in choices
+                    .tag.tag__choice
+                        input(type='checkbox' id=choice value=choice name='tags')
+                        label(for='choice') #{choice}
+            input.button(type='submit' value='Add to Menu')

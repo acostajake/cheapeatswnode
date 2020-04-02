@@ -5,7 +5,7 @@ include mixins/restaurantCard
 
 block content
     .inner
-        h2 title
+        h2 #{title}
         .stores
             each restaurant in restaurants
                 +restaurantCard(restaurant)

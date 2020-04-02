@@ -432,8 +432,8 @@ template {
   display: none; }
 
 @font-face {
-  font-family: 'panama';
-  src: url("/fonts/panama-bold-webfont.woff2") format("woff2"), url("/fonts/panama-bold-webfont.woff") format("woff");
+  font-family: 'Nunito Sans';
+  src: url("https://fonts.googleapis.com/css?family=Nunito+Sans");
   font-weight: normal;
   font-style: normal; }
 
@@ -446,9 +446,8 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-size: 4rem;
-  font-family: 'Panama';
+  font-family: 'Nunito Sans';
   font-weight: 600;
-  letter-spacing: -1px;
   margin-top: 4px;
   text-align: center; }
 
@@ -485,6 +484,7 @@ p {
     position: absolute;
     z-index: -1; }
   .title a {
+    font-size: 20px;
     border-bottom: 0;
     background-image: linear-gradient(to right, rgba(255, 196, 14, 0.8) 100%, rgba(255, 196, 14, 0.8) 50%); }
 
@@ -761,7 +761,8 @@ label {
 .store__hero {
   position: relative;
   padding: 0 10px 0 10px;
-  text-align: right; }
+  text-align: right;
+  min-height: 180px; }
   .store__hero:before {
     display: block;
     content: '';
@@ -994,7 +995,8 @@ label {
 .reviewer {
   position: relative;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
-  margin-bottom: 2rem; }
+  margin-bottom: 2rem;
+  padding: 4px; }
   .reviewer__stars {
     display: -ms-flexbox;
     display: flex;
@@ -1098,7 +1100,7 @@ label {
   border: 0;
   background: #FFC40E;
   color: #303030;
-  font-family: 'Panama';
+  font-family: 'Nunito-Sans';
   font-weight: 600;
   margin-top: 8px; }
 

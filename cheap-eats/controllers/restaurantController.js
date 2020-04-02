@@ -70,7 +70,7 @@ exports.getRestaurants = async (req, res) => {
         res.redirect(`/restaurants/page/${pages}`);
     }
     res.render('restaurants', {
-        title: 'Update',
+        title: 'All Places',
         count,
         page, 
         pages, 
@@ -155,7 +155,7 @@ exports.searchNearby = async (req, res) => {
 
 exports.getMap = (req, res) => {
     res.render('map', { title: 'Map' });
-}
+};
 
 exports.likePlace = async (req, res) => {
     const likes = req.user.likes.map(obj => obj.toString());
