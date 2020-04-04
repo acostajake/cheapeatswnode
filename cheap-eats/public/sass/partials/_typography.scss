@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 4rem;
   font-family: 'Nunito Sans';
   font-weight: 600;
-  margin-top: 4px;
+  margin-top: 2rem;
   text-align: center;
 }
 
@@ -63,6 +63,7 @@ p {
   line-height:1.1;
   // inline link inside
   a {
+    padding: 4px;
     font-size: 20px;
     border-bottom: 0;
     $yellowa: rgba($yellow,0.8);

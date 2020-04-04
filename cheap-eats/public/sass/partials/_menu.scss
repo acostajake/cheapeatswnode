@@ -1,0 +1,20 @@
+.menu {
+    position: relative;
+    margin: 4px 16px;
+    display: flex;
+    justify-content: space-between;
+    &__letter {
+        padding: 4px;
+    }
+}
+
+.radios {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.radioInput {
+    width: 10px;
+    margin: 4px 8px;
+}

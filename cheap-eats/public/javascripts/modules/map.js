@@ -9,7 +9,6 @@ function loadPlaces(map, lat = 34.065, lng = -118.3592) {
     axios.get(`/api/restaurants/near?lat=${lat}&lng=${lng}`)
         .then(res => {
             const places = res.data;
-            console.log(places)
             if(!places.length) {
                 alert('Try again! Nothing found.');
                 return;

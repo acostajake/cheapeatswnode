@@ -846,7 +846,6 @@ function loadPlaces(map) {
 
     _axios2.default.get('/api/restaurants/near?lat=' + lat + '&lng=' + lng).then(function (res) {
         var places = res.data;
-        console.log(places);
         if (!places.length) {
             alert('Try again! Nothing found.');
             return;
