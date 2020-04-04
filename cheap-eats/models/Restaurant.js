@@ -74,7 +74,6 @@ restaurantSchema.pre('save', async function(next) {
     if(storesWithSlug.length) {
         this.slug = `${this.slug}-${storesWithSlug.length + 1}`
     }
-
     next();
 });
 

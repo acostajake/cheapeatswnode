@@ -737,7 +737,9 @@ label {
   padding-bottom: 8px;
   display: -ms-flexbox;
   display: flex;
-  color: white;
+  background-color: snow;
+  opacity: .4;
+  color: #000;
   -ms-flex-align: center;
       align-items: center;
   -ms-flex-pack: distribute;
@@ -746,8 +748,7 @@ label {
 .store__action {
   font-size: 10px; }
   .store__action svg {
-    width: 25px;
-    fill: white; }
+    width: 25px; }
   .store__action--edit a {
     border-bottom: 0; }
 
@@ -906,8 +907,7 @@ label {
     opacity: 0;
     top: 0; }
   .heart__button svg {
-    width: 25px;
-    fill: white; }
+    width: 25px; }
   .heart__button--hearted svg {
     fill: red; }
   .heart__button--float:after {
@@ -983,9 +983,6 @@ label {
   .review p {
     white-space: pre-wrap; }
 
-/*
-  Reviewer Form
- */
 .reviewer {
   position: relative;
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
@@ -1094,7 +1091,6 @@ label {
   border: 0;
   background: #FFC40E;
   color: #303030;
-  font-family: 'Nunito-Sans';
   font-weight: 600;
   margin-top: 8px; }
 
@@ -1116,5 +1112,27 @@ pre.error {
   background: white;
   line-height: 3;
   white-space: pre-line; }
+
+.menu {
+  position: relative;
+  margin: 4px 16px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: justify;
+      justify-content: space-between; }
+  .menu__letter {
+    padding: 4px; }
+
+.radios {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: start;
+      justify-content: flex-start;
+  -ms-flex-align: center;
+      align-items: center; }
+
+.radioInput {
+  width: 10px;
+  margin: 4px 8px; }
 
 /*# sourceMappingURL=style.css.map*/

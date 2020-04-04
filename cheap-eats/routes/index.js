@@ -66,7 +66,9 @@ router.get('/api/search', catchErrors(restaurantController.search));
 
 router.get('/api/restaurants/near', catchErrors(restaurantController.searchNearby));
 
-router.post('/api/restaurants/:id/like', catchErrors(restaurantController.likePlace))
+router.post('/api/restaurants/:id/like', catchErrors(restaurantController.likePlace));
+
+router.get('/api/menus/:letter', catchErrors(menuController.searchByLetter));
 
 module.exports = router;
  
